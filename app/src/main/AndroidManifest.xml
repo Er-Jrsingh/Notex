@@ -11,7 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Notex"
         tools:ignore="AllowBackup">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.Notex.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
