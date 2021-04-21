@@ -9,7 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.codingcrazz.notex.model.NoteEntity;
+import com.codingcrazz.notex.database.NoteEntity;
 import com.codingcrazz.notex.model.NotesAdapter;
 import com.codingcrazz.notex.utils.SampleDataProvider;
 

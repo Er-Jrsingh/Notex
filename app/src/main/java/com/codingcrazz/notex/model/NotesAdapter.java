@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codingcrazz.notex.R;
+import com.codingcrazz.notex.database.NoteEntity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;

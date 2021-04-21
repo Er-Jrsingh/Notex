@@ -1,4 +1,4 @@
-package com.codingcrazz.notex.model;
+package com.codingcrazz.notex.database;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;

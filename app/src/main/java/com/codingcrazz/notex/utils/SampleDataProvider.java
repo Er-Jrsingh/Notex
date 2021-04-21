@@ -1,6 +1,6 @@
 package com.codingcrazz.notex.utils;
 
-import com.codingcrazz.notex.model.NoteEntity;
+import com.codingcrazz.notex.database.NoteEntity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
