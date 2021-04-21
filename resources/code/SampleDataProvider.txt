@@ -1,0 +1,3 @@
+private static final String SAMPLE_TEXT_1="A Simple Note";
+private static final String SAMPLE_TEXT_2="A Text With a\nLine";
+private static final String SAMPLE_TEXT_3="India is often referred to as a subcontinent of Southern Asia owing to its distinct and vast landmass. Surrounded by sea on three sides, the majestic Himalayas separates it from the rest of mainland Asia. India is famous for its ancient history, varied landscapes and diverse culture.";
