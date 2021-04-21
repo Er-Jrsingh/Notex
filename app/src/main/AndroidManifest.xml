@@ -11,6 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Notex"
         tools:ignore="AllowBackup">
+
+        <activity
+            android:name=".EditorActivity"
+            android:label="@string/title_activity_editor"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.Notex.NoActionBar" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
