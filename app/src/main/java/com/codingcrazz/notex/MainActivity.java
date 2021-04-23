@@ -6,12 +6,14 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codingcrazz.notex.database.NoteEntity;
 import com.codingcrazz.notex.model.NotesAdapter;
-import com.codingcrazz.notex.utils.SampleDataProvider;
+import com.codingcrazz.notex.viewmodels.ListActivityViewModel;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
 
     private List<NoteEntity> mNotesList;
+    private ListActivityViewModel mViewModel;
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.notes_recyclerview)
@@ -41,15 +44,21 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        initViewModel();
         ButterKnife.bind(this);
         initRecyclerView();
 
-        mNotesList= SampleDataProvider.getSampleData();
+        mNotesList = mViewModel.mNotesList;
         showData();
     }
 
+    private void initViewModel() {
+        mViewModel = ViewModelProviders.of(this)
+                .get(ListActivityViewModel.class);
+    }
+
     private void showData() {
-        NotesAdapter notesAdapter=new NotesAdapter(this,mNotesList);
+        NotesAdapter notesAdapter = new NotesAdapter(this, mNotesList);
         mRecyclerView.setAdapter(notesAdapter);
     }
 
