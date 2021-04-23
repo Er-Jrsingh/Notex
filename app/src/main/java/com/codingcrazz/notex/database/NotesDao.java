@@ -32,7 +32,7 @@ public interface NotesDao {
     @Query("DELETE FROM notes")
     int deleteAllNotes();
 
-    @Query("SELECT COUNT(*) FROM ")
+    @Query("SELECT COUNT(*) FROM notes")
     int getCount();
 
 }
