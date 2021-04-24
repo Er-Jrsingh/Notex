@@ -19,7 +19,11 @@ public class ListActivityViewModel extends AndroidViewModel {
 
     public ListActivityViewModel(@NonNull Application application) {
         super(application);
-        mRepository = AppRepository.getInstance();
+        mRepository = AppRepository.getInstance(application.getApplicationContext());
         mNotesList = mRepository.mNotesList;
+    }
+
+    public void addSampleData() {
+        mRepository.addSampleData();
     }
 }
