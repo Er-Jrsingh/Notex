@@ -28,4 +28,8 @@ public class ListActivityViewModel extends AndroidViewModel {
     public void addSampleData() {
         mRepository.addSampleData();
     }
+
+    public void deleteAllData() {
+        mRepository.deleteAllData();
+    }
 }

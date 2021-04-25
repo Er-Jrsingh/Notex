@@ -1,6 +1,7 @@
 package com.codingcrazz.notex.database;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -12,6 +13,7 @@ import java.util.concurrent.Executors;
 
 public class AppRepository {
 
+    public static final String TAG = "myTag";
     public static AppRepository ourInstance;
     private AppDatabase mDatabase;
     public LiveData<List<NoteEntity>> mNotesList;
@@ -19,23 +21,34 @@ public class AppRepository {
 
     private AppRepository(Context context) {
 //        mNotesList = SampleDataProvider.getSampleData();
-        mDatabase=AppDatabase.getInstance(context);
+        mDatabase = AppDatabase.getInstance(context);
         mNotesList = getAllNotes();
     }
 
     public static AppRepository getInstance(Context context) {
-        return ourInstance=new AppRepository(context);
+        return ourInstance = new AppRepository(context);
     }
 
     public void addSampleData() {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                 mDatabase.notesDao().insertAll(SampleDataProvider.getSampleData());
+                mDatabase.notesDao().insertAll(SampleDataProvider.getSampleData());
             }
         });
     }
-    private LiveData<List<NoteEntity>> getAllNotes(){
+
+    private LiveData<List<NoteEntity>> getAllNotes() {
         return mDatabase.notesDao().getAllNotes();
+    }
+
+    public void deleteAllData() {
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                int notes = mDatabase.notesDao().deleteAllNotes();
+                Log.d(TAG, "run : Notes Deleted " + notes);
+            }
+        });
     }
 }
