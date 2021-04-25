@@ -1,5 +1,6 @@
 package com.codingcrazz.notex.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -27,7 +28,7 @@ public interface NotesDao {
     NoteEntity getNoteById(int id);
 
     @Query("SELECT * FROM notes ORDER BY date DESC")
-    List<NoteEntity> getAllNotes();
+    LiveData<List<NoteEntity>> getAllNotes();
 
     @Query("DELETE FROM notes")
     int deleteAllNotes();

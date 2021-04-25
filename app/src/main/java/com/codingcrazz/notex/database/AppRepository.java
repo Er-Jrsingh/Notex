@@ -2,6 +2,8 @@ package com.codingcrazz.notex.database;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
+
 import com.codingcrazz.notex.utils.SampleDataProvider;
 
 import java.util.List;
@@ -12,12 +14,13 @@ public class AppRepository {
 
     public static AppRepository ourInstance;
     private AppDatabase mDatabase;
-    public List<NoteEntity> mNotesList;
+    public LiveData<List<NoteEntity>> mNotesList;
     private Executor mExecutor = Executors.newSingleThreadExecutor();
 
     private AppRepository(Context context) {
-        mNotesList = SampleDataProvider.getSampleData();
+//        mNotesList = SampleDataProvider.getSampleData();
         mDatabase=AppDatabase.getInstance(context);
+        mNotesList = getAllNotes();
     }
 
     public static AppRepository getInstance(Context context) {
@@ -28,8 +31,11 @@ public class AppRepository {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                 mDatabase.notesDao().insertAll(mNotesList);
+                 mDatabase.notesDao().insertAll(SampleDataProvider.getSampleData());
             }
         });
+    }
+    private LiveData<List<NoteEntity>> getAllNotes(){
+        return mDatabase.notesDao().getAllNotes();
     }
 }
