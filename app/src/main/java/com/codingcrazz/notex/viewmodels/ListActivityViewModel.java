@@ -1,6 +1,7 @@
 package com.codingcrazz.notex.viewmodels;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -31,5 +32,9 @@ public class ListActivityViewModel extends AndroidViewModel {
 
     public void deleteAllData() {
         mRepository.deleteAllData();
+    }
+
+    public void deleteNote(NoteEntity noteEntity) {
+        mRepository.deleteNote(noteEntity);
     }
 }
