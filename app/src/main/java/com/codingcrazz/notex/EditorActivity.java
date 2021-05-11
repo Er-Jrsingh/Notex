@@ -2,6 +2,7 @@ package com.codingcrazz.notex;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -18,6 +19,8 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.codingcrazz.notex.utils.Constants.EDITING_KEY;
+
 
 public class EditorActivity extends AppCompatActivity {
 
@@ -26,6 +29,7 @@ public class EditorActivity extends AppCompatActivity {
     @BindView(R.id.edit_note_text)
     TextView mEditText;
     private boolean aNewNote;
+    private boolean isEditing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +41,20 @@ public class EditorActivity extends AppCompatActivity {
         CollapsingToolbarLayout toolBarLayout = findViewById(R.id.toolbar_layout);
         toolBarLayout.setTitle(getTitle());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ButterKnife.bind(this);
 
+        if (savedInstanceState != null) {
+            isEditing = savedInstanceState.getBoolean(EDITING_KEY);
+        }
+
         initViewMode();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putBoolean(EDITING_KEY, true);
+        super.onSaveInstanceState(outState);
     }
 
     private void initViewMode() {
@@ -48,7 +63,7 @@ public class EditorActivity extends AppCompatActivity {
                 .get(EditorViewModel.class);
 
         mViewModel.mLiveNote.observe(this, (noteEntity) -> {
-            if (noteEntity != null) {
+            if (noteEntity != null && !isEditing) {
                 mEditText.setText(noteEntity.getText());
             }
         });
