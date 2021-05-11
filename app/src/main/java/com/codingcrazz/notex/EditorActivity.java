@@ -2,6 +2,7 @@ package com.codingcrazz.notex;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class EditorActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.edit_note_text)
     TextView mEditText;
+    private boolean aNewNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +56,12 @@ public class EditorActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
             setTitle("New Note");
+            aNewNote = true;
         } else {
             setTitle("Edit Note");
             int noteId = bundle.getInt(Constants.NOTE_ID_KEY);
             mViewModel.loadNote(noteId);
+            aNewNote = false;
         }
     }
 
@@ -68,11 +72,30 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (!aNewNote) {
+            getMenuInflater().inflate(R.menu.menu_editor, menu);
+            return true;
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             saveAndExit();
+            return true;
+        } else if (item.getItemId() == R.id.action_delete_note) {
+            deleteNote();
+            finish();
+            return true;
+
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteNote() {
+        mViewModel.deleteNote();
     }
 
     private void saveAndExit() {
