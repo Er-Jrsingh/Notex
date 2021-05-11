@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.codingcrazz.notex.database.AppRepository;
 import com.codingcrazz.notex.database.NoteEntity;
 
+import java.util.Date;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -33,5 +34,19 @@ public class EditorViewModel extends AndroidViewModel {
                 mLiveNote.postValue(noteEntity);
             }
         });
+    }
+
+    public void saveAndExit(String noteText) {
+
+        NoteEntity noteEntity=mLiveNote.getValue();
+
+        if (noteEntity==null){
+
+        }else {
+            noteEntity.setText(noteText.trim());
+            noteEntity.setDate(new Date());
+            mRepository.updateNote(noteEntity);
+        }
+
     }
 }

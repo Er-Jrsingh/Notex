@@ -2,8 +2,10 @@ package com.codingcrazz.notex;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
@@ -29,6 +31,7 @@ public class EditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editor);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_check);
         CollapsingToolbarLayout toolBarLayout = findViewById(R.id.toolbar_layout);
         toolBarLayout.setTitle(getTitle());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -56,5 +59,23 @@ public class EditorActivity extends AppCompatActivity {
             int noteId = bundle.getInt(Constants.NOTE_ID_KEY);
             mViewModel.loadNote(noteId);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        saveAndExit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            saveAndExit();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void saveAndExit() {
+        mViewModel.saveAndExit(mEditText.getText().toString());
     }
 }
