@@ -8,13 +8,18 @@
     tools:context=".EditorActivity"
     tools:showIn="@layout/activity_editor">
 
-    <EditText
-        android:id="@+id/edit_note_text"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/text_margin"
-        android:inputType="textMultiLine|textCapSentences"
-        android:text="@string/large_text"
-        tools:ignore="Autofill,LabelFor" />
+        android:layout_height="match_parent">
 
+        <EditText
+            android:id="@+id/edit_note_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:hint="@string/enter_text"
+            android:inputType="textMultiLine|textCapSentences"
+            tools:ignore="Autofill" />
+
+    </ScrollView>
 </androidx.core.widget.NestedScrollView>

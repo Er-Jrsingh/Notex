@@ -1,6 +1,7 @@
 package com.codingcrazz.notex.viewmodels;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -38,15 +39,19 @@ public class EditorViewModel extends AndroidViewModel {
 
     public void saveAndExit(String noteText) {
 
-        NoteEntity noteEntity=mLiveNote.getValue();
+        NoteEntity noteEntity = mLiveNote.getValue();
 
-        if (noteEntity==null){
-
-        }else {
+        if (noteEntity == null) {
+            if (TextUtils.isEmpty(noteText.trim())) {
+                return;
+            } else {
+                noteEntity = new NoteEntity(new Date(), noteText.trim());
+            }
+        } else {
             noteEntity.setText(noteText.trim());
             noteEntity.setDate(new Date());
-            mRepository.updateNote(noteEntity);
         }
+        mRepository.InsertNode(noteEntity);
 
     }
 }

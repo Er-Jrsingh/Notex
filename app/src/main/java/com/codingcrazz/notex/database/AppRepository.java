@@ -56,7 +56,7 @@ public class AppRepository {
         return mDatabase.notesDao().getNoteById(noteId);
     }
 
-    public void updateNote(NoteEntity noteEntity) {
+    public void InsertNode(NoteEntity noteEntity) {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
